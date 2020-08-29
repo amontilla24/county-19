@@ -1,6 +1,7 @@
-INFO:root:Pulled data from https://github.com/nytimes/covid-19-data.git
 INFO:root:Pulling data:Already up to date.
 INFO:root:Populating dataframes... 
-INFO:root:Success populating dataframes (0.620 secs)
+INFO:root:Success populating dataframes (0.621 secs)
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (0.597 secs)
 INFO:root:Pulling data:Already up to date.
-INFO:root:Uploading Data [08/29/2020 12:15:33]
+INFO:root:Uploading Data [08/29/2020 12:54:18]
