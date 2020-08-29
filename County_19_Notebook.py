@@ -183,6 +183,7 @@ states = us_states.state.unique()
 i = 0
 while True:
     logging.info(str("Pulling data:"+git_repo.pull()))
+    print('Uploading Data ['+datetime.today().strftime('%m/%d/%Y %H:%M:%S')+']')
     logging.info(str('Uploading Data ['+datetime.today().strftime('%m/%d/%Y %H:%M:%S')+']'))
     upload_all_data(i)
     i = (i + 1) % len(counties)
