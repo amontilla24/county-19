@@ -182,6 +182,23 @@ states = us_states.state.unique()
 # Upload data to firebase
 i = 0
 while True:
+    
+    # Populate dataframes
+    logging.info('Populating dataframes... ')
+    start = time.time()
+    us_counties = pd.read_csv('covid-19-data/us-counties.csv')
+    us_states = pd.read_csv('covid-19-data/us-states.csv')
+    us = pd.read_csv('covid-19-data/us.csv')
+    us_counties.sort_values(by=['date'], inplace=True, ascending=False)
+    us_states.sort_values(by=['date'], inplace=True, ascending=False)
+    us.sort_values(by=['date'], inplace=True, ascending=False)
+    end = time.time()
+    logging.info(str('Success populating dataframes (' + str(format(end-start, '.3f')) + ' secs)'))
+    counties_info = us_counties.county.unique()
+    counties = list(partition(counties_info, 60))
+    states = us_states.state.unique()
+
+    # Upload data
     logging.info(str("Pulling data:"+git_repo.pull()))
     print('Uploading Data ['+datetime.today().strftime('%m/%d/%Y %H:%M:%S')+']')
     logging.info(str('Uploading Data ['+datetime.today().strftime('%m/%d/%Y %H:%M:%S')+']'))
