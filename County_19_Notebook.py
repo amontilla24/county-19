@@ -186,7 +186,7 @@ while True:
     logging.info(str('Uploading Data ['+datetime.today().strftime('%m/%d/%Y %H:%M:%S')+']'))
     upload_all_data(i)
     i = (i + 1) % len(counties)
-    time.sleep(120)
+    time.sleep(1200)
 
 
 # #### Notes
