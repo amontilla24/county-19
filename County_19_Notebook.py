@@ -124,7 +124,7 @@ def upload_all_data(n):
     upload_states()
     upload_counties(n)
     end = time.time()
-    logging.info('Total upload time: (' + str(format(end-start, '.3f')) + ' secs)')
+    logging.info('	Total upload time: (' + str(format(end-start, '.3f')) + ' secs)')
 
 
 # In[213]:
