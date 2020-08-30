@@ -14,7 +14,7 @@
 # #### iOS / Android App (Flutter?)
 # Frontend to access the Data
 
-# In[45]:
+# In[138]:
 
 
 # Imports
@@ -30,7 +30,7 @@ import os
 import logging
 
 
-# In[46]:
+# In[139]:
 
 
 # Filter data by a given county
@@ -41,7 +41,7 @@ def filter_by_county(county):
     return filtered
 
 
-# In[47]:
+# In[140]:
 
 
 # Filter data by a given state
@@ -50,7 +50,7 @@ def filter_by_state(state):
     return us_states[(us_states['state']==state)].drop({'state', 'fips'},  axis=1).reset_index(drop=True)
 
 
-# In[48]:
+# In[141]:
 
 
 # Filter US data
@@ -59,7 +59,7 @@ def filter_us():
     return us.reset_index(drop=True)
 
 
-# In[49]:
+# In[142]:
 
 
 # Upload information info (county and state list) to firebase
@@ -67,58 +67,58 @@ def filter_us():
 def upload_info():
     print('Uploading info data...')
     start = time.time()
-    firebase_db.put(url='/info/', data=json.dumps(states.tolist()), name='states')
-    firebase_db.put(url='/info/', data=json.dumps(counties_info.tolist()), name='counties')
+    firebase_db.put(url='/info/', data=str(states.tolist()).strip('[]').replace('\'','').replace(', ', ','), name='states')
+    firebase_db.put(url='/info/', data=str(counties_info.tolist()).strip('[]').replace('\'','').replace(', ', ','), name='counties')
     end = time.time()
     print('Finished uploading info data (' + str(format(end-start, '.3f')) + ' secs)')
 
 
-# In[50]:
+# In[143]:
 
 
 # Upload given data to specific dir
 #
-def firebase_upload(dir, data):
+def firebase_upload(dir, data, name):
     # TODO: might want to send more data in the future, for now this will do
-    firebase_db.put(url=dir, data=data.head(90).to_json(orient ='index'), name='quarter')
+    firebase_db.put(url=dir, data=data.head(90).to_dict('records'), name=name)
 
 
-# In[51]:
+# In[144]:
 
 
 def upload_us():
     print('Uploading US data...')
     start = time.time()
-    firebase_upload('/us/', filter_us())
+    firebase_upload(dir='/', data=filter_us(), name='us')
     end = time.time()
     print('Finished uploading US data (' + str(format(end-start, '.3f')) + ' secs)')
 
 
-# In[52]:
+# In[145]:
 
 
 def upload_states():
     print('Uploading state data...')
     start = time.time()
     for state in states:
-        firebase_upload('/state/'+state+'/', filter_by_state(state))
+        firebase_upload(dir='/state/', data=filter_by_state(state), name=state)
     end = time.time()
     print('Finished uploading states data (' + str(format(end-start, '.3f')) + ' secs)')
 
 
-# In[53]:
+# In[146]:
 
 
 def upload_counties(n):
     print('Uploading county data...')
     start = time.time()
     for county in counties[n%len(counties)]:
-        firebase_upload('/county/'+county.replace(".", "")+'/', filter_by_county(county))
+        firebase_upload(dir='/county/', data=filter_by_county(county), name=county.replace(".", ""))
     end = time.time()
     print('Finished uploading county data (' + str(format(end-start, '.3f')) + ' secs)')
 
 
-# In[54]:
+# In[151]:
 
 
 def upload_all_data(n):
@@ -131,7 +131,7 @@ def upload_all_data(n):
     print('Total upload time: (' + str(format(end-start, '.3f')) + ' secs)')
 
 
-# In[55]:
+# In[152]:
 
 
 def partition(county_list, n):
@@ -140,7 +140,7 @@ def partition(county_list, n):
         yield county_list[i:i + n]
 
 
-# In[ ]:
+# In[153]:
 
 
 # Init log
@@ -171,7 +171,7 @@ end = time.time()
 logging.info(str('Success populating dataframes (' + str(format(end-start, '.3f')) + ' secs)'))
 
 # Connect to firebase database
-firebase_url = 'https://county-19.firebaseio.com/'
+firebase_url = 'https://county-live-19.firebaseio.com/'
 firebase_db = firebase.FirebaseApplication(firebase_url, None)
 
 # Get information data
@@ -179,10 +179,17 @@ counties_info = us_counties.county.unique()
 counties = list(partition(counties_info, 60))
 states = us_states.state.unique()
 
+
+# In[ ]:
+
+
 # Upload data to firebase
 i = 0
 while True:
     
+    git_repo = git.cmd.Git(repo_dir)
+    logging.info(str("Pulling data:"+git_repo.pull()))
+
     # Populate dataframes
     logging.info('Populating dataframes... ')
     start = time.time()

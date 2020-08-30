@@ -5,3 +5,42 @@ INFO:root:Populating dataframes...
 INFO:root:Success populating dataframes (0.597 secs)
 INFO:root:Pulling data:Already up to date.
 INFO:root:Uploading Data [08/29/2020 12:54:18]
+INFO:root:Pulling data:Updating f78f8fe..2b9d278
+Fast-forward
+ live/us-counties.csv | 6466 +++++++++++++++++++++++++-------------------------
+ live/us-states.csv   |  110 +-
+ live/us.csv          |    2 +-
+ us-counties.csv      | 3235 ++++++++++++++++++++++++-
+ us-states.csv        |   57 +-
+ us.csv               |    3 +-
+ 6 files changed, 6581 insertions(+), 3292 deletions(-)
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (1.388 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (1.275 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (1.070 secs)
+ERROR:root:Internal Python error in the inspect module.
+Below is the traceback from this internal error.
+
+INFO:root:
+Unfortunately, your original traceback can not be constructed.
+
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (0.799 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (0.775 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Uploading Data [08/30/2020 14:31:00]
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (0.748 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Populating dataframes... 
+INFO:root:Success populating dataframes (0.724 secs)
+INFO:root:Pulling data:Already up to date.
+INFO:root:Uploading Data [08/30/2020 14:31:17]
