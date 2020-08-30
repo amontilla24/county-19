@@ -3,6 +3,7 @@ A firebase(d) app to get live updates of Covid 19 cases in the US
 
 ### TODOS
 Firebase is running in test mode, need to edit authentication and permissions
+
 Data is re-populated and sent to firebase even if repo pull remains unchanged
 
 ### Running commands for EC2
