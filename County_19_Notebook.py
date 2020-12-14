@@ -7,10 +7,10 @@
 # ### Functional Distribution
 # #### Pyton Scripts
 # Scrapes data from New York Times GitHub project
-# 
+#
 # #### Firebase
 # Keeps the clean data and stores it based on county and time
-# 
+#
 # #### iOS / Android App (Flutter?)
 # Frontend to access the Data
 
@@ -79,7 +79,7 @@ def upload_info():
 #
 def firebase_upload(dir, data, name):
     # TODO: might want to send more data in the future, for now this will do
-    firebase_db.put(url=dir, data=data.head(90).to_dict('records'), name=name)
+    firebase_db.put(url=dir, data=data.head(360).to_dict('records'), name=name)
 
 
 # In[209]:
@@ -124,7 +124,7 @@ def upload_all_data(n):
     upload_states()
     upload_counties(n)
     end = time.time()
-    logging.info('	Total upload time: (' + str(format(end-start, '.3f')) + ' secs)')
+    logging.info('  Total upload time: (' + str(format(end-start, '.3f')) + ' secs)')
 
 
 # In[213]:
@@ -196,5 +196,5 @@ while True:
 
 
 # #### Notes
-# Command to convert notebook to python: 
+# Command to convert notebook to python:
 # jupyter nbconvert --to python County_19_Notebook.ipynb
